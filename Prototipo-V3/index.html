@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualización de Apellidos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Visualización de Apellidos</h1>
+    <div id="filters">
+        <label for="filter">Filtrar por apellido:</label>
+        <input type="text" id="filter" placeholder="Introduce un apellido">
+        <button onclick="filterData()">Filtrar</button>
+    </div>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>Apellido</th>
+                <th>Valor</th>
+                <th>Orden</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            <!-- Los datos se insertarán aquí dinámicamente -->
+        </tbody>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>
