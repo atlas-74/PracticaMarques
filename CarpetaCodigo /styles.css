@@ -19,36 +19,23 @@ h1 {
     color: #444;
 }
 
-.controls {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-label {
-    margin-right: 10px;
-}
-
-select, button {
-    padding: 10px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-button {
-    background-color: #28a745;
-    color: white;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #218838;
-}
-
 #data-display {
     margin-top: 20px;
-    padding: 20px;
+}
+
+.data-item {
+    padding: 15px;
+    margin-bottom: 10px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 5px;
+}
+
+.data-item h3 {
+    margin-top: 0;
+    color: #28a745;
+}
+
+.data-item p {
+    margin: 5px 0;
 }
