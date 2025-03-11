@@ -1,0 +1,5 @@
+[
+    {"id": 1, "firstName": "John", "lastName": "Doe", "age": 25, "active": true},
+    {"id": 2, "firstName": "Jane", "lastName": "Smith", "age": 30, "active": false},
+    // ... más de 500 registros
+]
