@@ -10,57 +10,56 @@ function displayData(data: any[], container: HTMLElement) {
     data.forEach(item => {
         const div = document.createElement('div');
         div.className = 'data-item';
-        div.textContent = JSON.stringify(item, null, 2);
+        div.innerHTML = `
+            <h3>${item.properties.Nombre}</h3>
+            <p><strong>Municipio:</strong> ${item.properties.Municipio}</p>
+            <p><strong>Dirección:</strong> ${item.properties.Dirección}</p>
+            <p><strong>Teléfono:</strong> ${item.properties.Teléfono}</p>
+            <p><strong>Titular:</strong> ${item.properties.Titular}</p>
+            <img src="${item.properties.Foto}" alt="Foto de ${item.properties.Nombre}" style="width:100px; height:auto;">
+        `;
         container.appendChild(div);
-    });
-}
-
-// Función principal
-async function main() {
-    const dataSelect = document.getElementById('data-select') as HTMLSelectElement;
-    const loadButton = document.getElementById('load-data') as HTMLButtonElement;
-    const dataDisplay = document.getElementById('data-display') as HTMLDivElement;
-
-    loadButton.addEventListener('click', async () => {
-        const selectedData = dataSelect.value;
-        const data = await loadJSON(`${selectedData}.json`);
-
-        // Aplicar funciones de procesamiento
-        const processedData = processData(data);
-
-        // Mostrar los datos procesados
-        displayData(processedData, dataDisplay);
     });
 }
 
 // Función para procesar los datos
 function processData(data: any[]): any[] {
-    // 1. Filtrar: Seleccionar solo los elementos que cumplen una condición
-    const filteredData = data.filter((item: any) => item.active);
+    // 1. Filtrar: Seleccionar solo las farmacias que tienen foto
+    const filteredData = data.filter((item: any) => item.properties.Foto);
 
-    // 2. Mapear: Transformar los datos
+    // 2. Mapear: Transformar los datos para incluir solo la información necesaria
     const mappedData = filteredData.map((item: any) => ({
         ...item,
-        fullName: `${item.firstName} ${item.lastName}`
+        fullName: `${item.properties.Titular} - ${item.properties.Nombre}`
     }));
 
-    // 3. Ordenar: Ordenar los datos por un campo específico
-    const sortedData = mappedData.sort((a: any, b: any) => a.age - b.age);
+    // 3. Ordenar: Ordenar los datos por el nombre de la farmacia
+    const sortedData = mappedData.sort((a: any, b: any) => a.properties.Nombre.localeCompare(b.properties.Nombre));
 
-    // 4. Reducir: Calcular la suma de las edades
-    const totalAge = sortedData.reduce((acc: number, item: any) => acc + item.age, 0);
-
-    // 5. Slice: Seleccionar solo los primeros 10 elementos
+    // 4. Slice: Seleccionar solo los primeros 10 elementos
     const slicedData = sortedData.slice(0, 10);
 
-    // 6. Función extra: Agregar un campo calculado
+    // 5. Función extra: Agregar un campo calculado (por ejemplo, si la farmacia está en un municipio específico)
     const finalData = slicedData.map((item: any) => ({
         ...item,
-        isAdult: item.age >= 18
+        isInSantaCruz: item.properties.Municipio === "Santa Cruz de La Palma"
     }));
 
-    console.log(`Total de edades: ${totalAge}`);
     return finalData;
+}
+
+// Función principal
+async function main() {
+    const dataDisplay = document.getElementById('data-display') as HTMLDivElement;
+
+    // Cargar los datos del archivo JSON
+    const data = await loadJSON('Farmacias.geojson');
+
+    // Procesar los datos
+    const processedData = processData(data.features);
+
+    // Mostrar los datos procesados
+    displayData(processedData, dataDisplay);
 }
 
 // Ejecutar la función principal
