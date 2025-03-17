@@ -3,29 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualización de Apellidos</title>
+    <title>Calidad del Aire</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Visualización de Apellidos</h1>
-    <div id="filters">
-        <label for="filter">Filtrar por apellido:</label>
-        <input type="text" id="filter" placeholder="Introduce un apellido">
-        <button onclick="filterData()">Filtrar</button>
-    </div>
-    <table id="data-table">
-        <thead>
-            <tr>
-                <th>Apellido</th>
-                <th>Valor</th>
-                <th>Orden</th>
-            </tr>
-        </thead>
-        <tbody id="table-body">
-            <!-- Los datos se insertarán aquí dinámicamente -->
-        </tbody>
-    </table>
-
+    <h1>Calidad del Aire por Provincia</h1>
+    <select id="provincia-select">
+        <option value="28">Madrid</option>
+        <option value="8">Barcelona</option>
+    </select>
+    <select id="order-select">
+        <option value="asc">Menor a Mayor Contaminación</option>
+        <option value="desc">Mayor a Menor Contaminación</option>
+    </select>
+    <button id="filter-button">Filtrar</button>
+    <div id="data-container"></div>
     <script src="script.js"></script>
 </body>
 </html>
