@@ -7,17 +7,23 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Calidad del Aire por Provincia</h1>
-    <select id="provincia-select">
-        <option value="28">Madrid</option>
-        <option value="8">Barcelona</option>
-    </select>
-    <select id="order-select">
-        <option value="asc">Menor a Mayor Contaminación</option>
-        <option value="desc">Mayor a Menor Contaminación</option>
-    </select>
-    <button id="filter-button">Filtrar</button>
-    <div id="data-container"></div>
+    <div class="container">
+        <h1>Calidad del Aire por Provincia</h1>
+        <div class="controls">
+            <select id="provincia-select">
+                <option value="28">Madrid</option>
+                <option value="8">Barcelona</option>
+                <!-- Añadir más provincias -->
+            </select>
+            <select id="order-select">
+                <option value="asc">Menor a Mayor Contaminación</option>
+                <option value="desc">Mayor a Menor Contaminación</option>
+            </select>
+            <button id="filter-button">Filtrar</button>
+        </div>
+        <div id="mean-container"></div>
+        <div id="data-container"></div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
