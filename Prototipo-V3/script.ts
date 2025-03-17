@@ -13,6 +13,7 @@ const isValid = validate(data);
 
 if (!isValid) {
     console.error("Datos no válidos:", validate.errors);
+    alert("Error: Los datos no son válidos. Por favor, revisa el archivo JSON.");
     throw new Error("Datos no válidos");
 }
 
@@ -45,11 +46,11 @@ function displayData(data: any[]): void {
     if (container) {
         container.innerHTML = data.map((item) => `
             <div class="data-item">
-                <p>Punto de Muestreo: ${item.punto_muestreo}</p>
-                <p>Municipio: ${item.municipio}</p>
-                <p>Provincia: ${item.provincia}</p>
-                <p>Contaminante: ${item.magnitud}</p>
-                <p>Contaminación (h01): ${item.h01}</p>
+                <p><strong>Punto de Muestreo:</strong> ${item.punto_muestreo}</p>
+                <p><strong>Municipio:</strong> ${item.municipio}</p>
+                <p><strong>Provincia:</strong> ${item.provincia}</p>
+                <p><strong>Contaminante:</strong> ${item.magnitud}</p>
+                <p><strong>Contaminación (h01):</strong> ${item.h01}</p>
             </div>
         `).join('');
     }
@@ -58,18 +59,29 @@ function displayData(data: any[]): void {
 // Función principal
 function main() {
     // Filtrar datos por provincia (ejemplo: provincia 28)
-    const filteredData = filterByProvincia(data.data, "28");
+    const provinciaSelect = document.getElementById('provincia-select') as HTMLSelectElement;
+    const orderSelect = document.getElementById('order-select') as HTMLSelectElement;
+    const filterButton = document.getElementById('filter-button');
 
-    // Calcular la media de contaminación para la provincia 28
-    const meanContamination = calculateMeanByProvincia(filteredData, "28");
-    console.log("Media de contaminación en la provincia 28:", meanContamination);
+    if (filterButton) {
+        filterButton.addEventListener('click', () => {
+            const provincia = provinciaSelect.value;
+            const order = orderSelect.value as "asc" | "desc";
 
-    // Ordenar datos por contaminación (ascendente por defecto)
-    const sortedData = sortByContamination(filteredData, "desc"); // Cambiar a "asc" para orden ascendente
-    console.log("Datos ordenados por contaminación:", sortedData);
+            const filteredData = filterByProvincia(data.data, provincia);
+            const sortedData = sortByContamination(filteredData, order);
 
-    // Mostrar los datos filtrados y ordenados en la página web
-    displayData(sortedData);
+            // Mostrar los datos filtrados y ordenados en la página web
+            displayData(sortedData);
+
+            // Mostrar la media de contaminación
+            const meanContamination = calculateMeanByProvincia(filteredData, provincia);
+            const meanContainer = document.getElementById('mean-container');
+            if (meanContainer) {
+                meanContainer.innerHTML = `<p><strong>Media de Contaminación:</strong> ${meanContamination.toFixed(2)}</p>`;
+            }
+        });
+    }
 }
 
 // Ejecutar la función principal
