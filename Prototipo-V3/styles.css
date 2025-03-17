@@ -1,59 +1,19 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    margin: 0;
-    padding: 20px;
+    margin: 20px;
 }
 
 h1 {
-    text-align: center;
-    color: #444;
+    color: #333;
 }
 
-#filters {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-#filters input {
-    padding: 5px;
-    margin-right: 10px;
-}
-
-#filters button {
-    padding: 5px 10px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-#filters button:hover {
-    background-color: #0056b3;
-}
-
-#data-table {
-    width: 100%;
-    border-collapse: collapse;
+#data-container {
     margin-top: 20px;
 }
 
-#data-table th, #data-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-#data-table th {
-    background-color: #007BFF;
-    color: white;
-}
-
-#data-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-#data-table tr:hover {
-    background-color: #ddd;
+.data-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
 }
