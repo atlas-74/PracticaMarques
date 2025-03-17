@@ -1,68 +1,76 @@
-// Datos JSON proporcionados
-const data = [
-    { Data_Referencia: "2024-01-01", COGNOM: "GARCIA", Valor: "31505", ORDRE_COGNOM: 2 },
-    { Data_Referencia: "2024-01-01", COGNOM: "GARCIA", Valor: "30727", ORDRE_COGNOM: 1 },
-    // ... (resto de los datos)
-];
+import Ajv from 'ajv';
+import schema from './schema.json'; // Importar el esquema
+import data from './calidad_aire_datos_dia.json'; // Importar los datos
 
-// Función para mostrar los datos en la tabla
-function displayData(dataToDisplay: any[]) {
-    const tableBody = document.getElementById("table-body");
-    if (tableBody) {
-        tableBody.innerHTML = ""; // Limpiar la tabla antes de agregar nuevos datos
+// Crear una instancia de AJV
+const ajv = new Ajv();
 
-        dataToDisplay.forEach(item => {
-            const row = document.createElement("tr");
+// Compilar el esquema
+const validate = ajv.compile(schema);
 
-            const cellCognom = document.createElement("td");
-            cellCognom.textContent = item.COGNOM;
-            row.appendChild(cellCognom);
+// Validar los datos
+const isValid = validate(data);
 
-            const cellValor = document.createElement("td");
-            cellValor.textContent = item.Valor;
-            row.appendChild(cellValor);
+if (!isValid) {
+    console.error("Datos no válidos:", validate.errors);
+    throw new Error("Datos no válidos");
+}
 
-            const cellOrdre = document.createElement("td");
-            cellOrdre.textContent = item.ORDRE_COGNOM;
-            row.appendChild(cellOrdre);
+// Filtrar datos por provincia
+function filterByProvincia(data: any[], provincia: string): any[] {
+    return data.filter((item) => item.provincia === provincia);
+}
 
-            tableBody.appendChild(row);
-        });
+// Calcular la media de contaminación por provincia
+function calculateMeanByProvincia(data: any[], provincia: string): number {
+    const filteredData = filterByProvincia(data, provincia);
+    const total = filteredData.reduce((acc, item) => {
+        return acc + parseFloat(item.h01 || 0); // Usar h01 como contaminante
+    }, 0);
+    return total / filteredData.length;
+}
+
+// Función extra: Ordenar datos por contaminación (h01)
+function sortByContamination(data: any[], order: "asc" | "desc" = "asc"): any[] {
+    return data.sort((a, b) => {
+        const aValue = parseFloat(a.h01 || 0);
+        const bValue = parseFloat(b.h01 || 0);
+        return order === "asc" ? aValue - bValue : bValue - aValue;
+    });
+}
+
+// Mostrar los datos en la página web
+function displayData(data: any[]): void {
+    const container = document.getElementById('data-container');
+    if (container) {
+        container.innerHTML = data.map((item) => `
+            <div class="data-item">
+                <p>Punto de Muestreo: ${item.punto_muestreo}</p>
+                <p>Municipio: ${item.municipio}</p>
+                <p>Provincia: ${item.provincia}</p>
+                <p>Contaminante: ${item.magnitud}</p>
+                <p>Contaminación (h01): ${item.h01}</p>
+            </div>
+        `).join('');
     }
 }
 
-// Función para filtrar los datos por apellido
-function filterData() {
-    const filterInput = document.getElementById("filter") as HTMLInputElement;
-    const filterValue = filterInput.value.toUpperCase();
+// Función principal
+function main() {
+    // Filtrar datos por provincia (ejemplo: provincia 28)
+    const filteredData = filterByProvincia(data.data, "28");
 
-    const filteredData = data.filter(item => item.COGNOM.toUpperCase().includes(filterValue));
-    displayData(filteredData);
-}
+    // Calcular la media de contaminación para la provincia 28
+    const meanContamination = calculateMeanByProvincia(filteredData, "28");
+    console.log("Media de contaminación en la provincia 28:", meanContamination);
 
-// Función para ordenar los datos por valor (de mayor a menor)
-function sortDataByValue() {
-    const sortedData = data.slice().sort((a, b) => parseInt(b.Valor) - parseInt(a.Valor));
+    // Ordenar datos por contaminación (ascendente por defecto)
+    const sortedData = sortByContamination(filteredData, "desc"); // Cambiar a "asc" para orden ascendente
+    console.log("Datos ordenados por contaminación:", sortedData);
+
+    // Mostrar los datos filtrados y ordenados en la página web
     displayData(sortedData);
 }
 
-// Función para obtener el total de valores usando reduce
-function getTotalValue() {
-    const total = data.reduce((acc, item) => acc + parseInt(item.Valor), 0);
-    alert(`El valor total de todos los apellidos es: ${total}`);
-}
-
-// Función para mapear los datos y obtener solo los apellidos
-function getCognoms() {
-    const cognoms = data.map(item => item.COGNOM);
-    alert(`Apellidos únicos: ${[...new Set(cognoms)].join(", ")}`);
-}
-
-// Función adicional: Obtener el apellido más común
-function getMostCommonCognom() {
-    const cognomCounts = data.reduce((acc, item) => {
-        acc[item.COGNOM] = (acc[item.COGNOM] || 0) + 1;
-        return acc;
-    }, {} as { [key: string]: number });
-
-    const mostCommon = Object.keys(cognomCounts).reduce((a, b) => cognom
+// Ejecutar la función principal
+main();
