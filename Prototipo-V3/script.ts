@@ -17,31 +17,36 @@ if (!isValid) {
     throw new Error("Datos no válidos");
 }
 
+// Función para convertir valores de contaminación a números
+function parseContaminationValue(value: string): number {
+    return parseFloat(value) || 0; // Si no es un número válido, devuelve 0
+}
+
 // Filtrar datos por provincia
 function filterByProvincia(data: any[], provincia: string): any[] {
     return data.filter((item) => item.provincia === provincia);
 }
 
-// Calcular la media de contaminación por provincia
-function calculateMeanByProvincia(data: any[], provincia: string): number {
+// Calcular la media de contaminación por provincia y magnitud
+function calculateMeanByProvincia(data: any[], provincia: string, field: string): number {
     const filteredData = filterByProvincia(data, provincia);
     const total = filteredData.reduce((acc, item) => {
-        return acc + parseFloat(item.h01 || 0); // Usar h01 como contaminante
+        return acc + parseContaminationValue(item[field]);
     }, 0);
-    return total / filteredData.length;
+    return filteredData.length > 0 ? total / filteredData.length : 0; // Evitar división por cero
 }
 
-// Función extra: Ordenar datos por contaminación (h01)
-function sortByContamination(data: any[], order: "asc" | "desc" = "asc"): any[] {
+// Función para ordenar datos por contaminación
+function sortByContamination(data: any[], field: string, order: "asc" | "desc" = "asc"): any[] {
     return data.sort((a, b) => {
-        const aValue = parseFloat(a.h01 || 0);
-        const bValue = parseFloat(b.h01 || 0);
+        const aValue = parseContaminationValue(a[field]);
+        const bValue = parseContaminationValue(b[field]);
         return order === "asc" ? aValue - bValue : bValue - aValue;
     });
 }
 
 // Mostrar los datos en la página web
-function displayData(data: any[]): void {
+function displayData(data: any[], field: string): void {
     const container = document.getElementById('data-container');
     if (container) {
         container.innerHTML = data.map((item) => `
@@ -50,7 +55,7 @@ function displayData(data: any[]): void {
                 <p><strong>Municipio:</strong> ${item.municipio}</p>
                 <p><strong>Provincia:</strong> ${item.provincia}</p>
                 <p><strong>Contaminante:</strong> ${item.magnitud}</p>
-                <p><strong>Contaminación (h01):</strong> ${item.h01}</p>
+                <p><strong>Contaminación (${field}):</strong> ${item[field]}</p>
             </div>
         `).join('');
     }
@@ -58,27 +63,28 @@ function displayData(data: any[]): void {
 
 // Función principal
 function main() {
-    // Filtrar datos por provincia (ejemplo: provincia 28)
     const provinciaSelect = document.getElementById('provincia-select') as HTMLSelectElement;
+    const magnitudSelect = document.getElementById('magnitud-select') as HTMLSelectElement;
     const orderSelect = document.getElementById('order-select') as HTMLSelectElement;
     const filterButton = document.getElementById('filter-button');
 
     if (filterButton) {
         filterButton.addEventListener('click', () => {
             const provincia = provinciaSelect.value;
+            const magnitud = magnitudSelect.value;
             const order = orderSelect.value as "asc" | "desc";
 
             const filteredData = filterByProvincia(data.data, provincia);
-            const sortedData = sortByContamination(filteredData, order);
+            const sortedData = sortByContamination(filteredData, magnitud, order);
 
             // Mostrar los datos filtrados y ordenados en la página web
-            displayData(sortedData);
+            displayData(sortedData, magnitud);
 
             // Mostrar la media de contaminación
-            const meanContamination = calculateMeanByProvincia(filteredData, provincia);
+            const meanContamination = calculateMeanByProvincia(filteredData, provincia, magnitud);
             const meanContainer = document.getElementById('mean-container');
             if (meanContainer) {
-                meanContainer.innerHTML = `<p><strong>Media de Contaminación:</strong> ${meanContamination.toFixed(2)}</p>`;
+                meanContainer.innerHTML = `<p><strong>Media de Contaminación (${magnitud}):</strong> ${meanContamination.toFixed(2)}</p>`;
             }
         });
     }
