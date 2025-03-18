@@ -1,118 +1,114 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const provinciaSelect = document.getElementById('provincia-select');
-    const municipioSelect = document.getElementById('municipio-select');
-    const magnitudSelect = document.getElementById('magnitud-select');
-    const orderSelect = document.getElementById('order-select');
-    const filterButton = document.getElementById('filter-button');
-    const dataContainer = document.getElementById('data-container');
-    const meanContainer = document.getElementById('mean-container');
-
-    // Datos de ejemplo (puedes cargarlos desde un archivo JSON)
-    const data = [
+// Datos de ejemplo (reemplaza esto con la carga real de datos)
+const data = {
+    data: [
         {
             "punto_muestreo": "28102001_1_38",
+            "h01": "4",
+            "h02": "4",
+            "h03": "4",
+            "h04": "4",
+            "h05": "4",
+            "h06": "4",
+            "h07": "4",
+            "h08": "4",
+            "h09": "4",
             "h10": "4",
-            "h12": "4",
             "h11": "4",
-            "h14": "4",
+            "h12": "4",
             "h13": "4",
-            "h16": "",
+            "h14": "4",
             "h15": "",
-            "h18": "",
+            "h16": "",
             "h17": "",
+            "h18": "",
             "h19": "",
-            "v10": "T",
-            "v12": "T",
-            "v11": "T",
-            "v14": "T",
-            "v13": "T",
-            "v16": "N",
-            "v15": "N",
-            "v18": "N",
-            "v17": "N",
-            "v19": "N",
-            "municipio": "102",
-            "h21": "",
             "h20": "",
-            "h23": "",
+            "h21": "",
             "h22": "",
+            "h23": "",
             "h24": "",
-            "v21": "N",
-            "v20": "N",
-            "v23": "N",
-            "v22": "N",
-            "v24": "N",
+            "municipio": "102",
             "provincia": "28",
             "estacion": "1",
             "mes": 3,
             "ano": 2025,
-            "h01": "4",
             "magnitud": "1",
-            "h03": "4",
-            "h02": "4",
-            "h05": "4",
-            "h04": "4",
-            "h07": "4",
-            "h06": "4",
-            "h09": "4",
-            "h08": "4",
-            "v01": "T",
-            "v03": "T",
-            "v02": "T",
-            "v05": "T",
-            "v04": "T",
-            "v07": "T",
-            "dia": 17,
-            "v06": "T",
-            "v09": "T",
-            "v08": "T"
+            "dia": 17
         }
-    ];
+        // Agrega más datos aquí si es necesario
+    ]
+};
 
-    // Mapeo de códigos de municipio a nombres (ejemplo)
-    const municipiosMap = {
-        "102": "Madrid Centro",
-        // Agrega más mapeos según sea necesario
-    };
+// Función para convertir valores de contaminación a números
+function parseContaminationValue(value) {
+    return parseFloat(value) || 0; // Si no es un número válido, devuelve 0
+}
 
-    // Cargar municipios basados en la provincia seleccionada
-    provinciaSelect.addEventListener('change', function() {
-        const provincia = provinciaSelect.value;
-        const municipios = [...new Set(data.filter(item => item.provincia === provincia).map(item => item.municipio))];
-        municipioSelect.innerHTML = municipios.map(municipio => `
-            <option value="${municipio}">${municipiosMap[municipio] || municipio}</option>
-        `).join('');
+// Filtrar datos por provincia
+function filterByProvincia(data, provincia) {
+    return data.filter((item) => item.provincia === provincia);
+}
+
+// Calcular la media de contaminación por provincia y magnitud
+function calculateMeanByProvincia(data, provincia, field) {
+    const filteredData = filterByProvincia(data, provincia);
+    const validValues = filteredData.map((item) => parseContaminationValue(item[field])).filter((value) => !isNaN(value));
+    return validValues.length > 0 ? validValues.reduce((acc, value) => acc + value, 0) / validValues.length : 0;
+}
+
+// Función para ordenar datos por contaminación
+function sortByContamination(data, field, order = "asc") {
+    return data.sort((a, b) => {
+        const aValue = parseContaminationValue(a[field]);
+        const bValue = parseContaminationValue(b[field]);
+        return order === "asc" ? aValue - bValue : bValue - aValue;
     });
+}
 
-    // Filtrar y mostrar datos
-    filterButton.addEventListener('click', function() {
-        const provincia = provinciaSelect.value;
-        const municipio = municipioSelect.value;
-        const magnitud = magnitudSelect.value;
-        const order = orderSelect.value;
-
-        const filteredData = data.filter(item => item.provincia === provincia && item.municipio === municipio);
-        const sortedData = filteredData.sort((a, b) => {
-            const valueA = parseFloat(a[magnitud]) || 0;
-            const valueB = parseFloat(b[magnitud]) || 0;
-            return order === 'asc' ? valueA - valueB : valueB - valueA;
-        });
-
-        // Mostrar los datos filtrados
-        dataContainer.innerHTML = sortedData.map(item => `
+// Mostrar los datos en la página web
+function displayData(data, field) {
+    const container = document.getElementById('data-container');
+    if (container) {
+        container.innerHTML = data.map((item) => `
             <div class="data-item">
-                <p>Municipio: ${municipiosMap[item.municipio] || item.municipio}</p>
-                <p>Estación: ${item.estacion}</p>
-                <p>${magnitud}: ${item[magnitud] || "N/A"}</p>
+                <p><strong>Punto de Muestreo:</strong> ${item.punto_muestreo}</p>
+                <p><strong>Municipio:</strong> ${item.municipio}</p>
+                <p><strong>Provincia:</strong> ${item.provincia}</p>
+                <p><strong>Contaminante:</strong> ${item.magnitud}</p>
+                <p><strong>Contaminación (${field}):</strong> ${item[field] || "N/A"}</p>
             </div>
         `).join('');
+    }
+}
 
-        // Calcular y mostrar la media
-        const validValues = sortedData.map(item => parseFloat(item[magnitud])).filter(value => !isNaN(value));
-        const mean = validValues.length > 0 ? validValues.reduce((sum, value) => sum + value, 0) / validValues.length : 0;
-        meanContainer.innerHTML = `<p>Media de ${magnitud}: ${mean.toFixed(2)}</p>`;
-    });
+// Función principal
+function main() {
+    const provinciaSelect = document.getElementById('provincia-select');
+    const magnitudSelect = document.getElementById('magnitud-select');
+    const orderSelect = document.getElementById('order-select');
+    const filterButton = document.getElementById('filter-button');
 
-    // Cargar municipios al inicio
-    provinciaSelect.dispatchEvent(new Event('change'));
-});
+    if (filterButton) {
+        filterButton.addEventListener('click', () => {
+            const provincia = provinciaSelect.value;
+            const magnitud = magnitudSelect.value;
+            const order = orderSelect.value;
+
+            const filteredData = filterByProvincia(data.data, provincia);
+            const sortedData = sortByContamination(filteredData, magnitud, order);
+
+            // Mostrar los datos filtrados y ordenados en la página web
+            displayData(sortedData, magnitud);
+
+            // Mostrar la media de contaminación
+            const meanContamination = calculateMeanByProvincia(filteredData, provincia, magnitud);
+            const meanContainer = document.getElementById('mean-container');
+            if (meanContainer) {
+                meanContainer.innerHTML = `<p><strong>Media de Contaminación (${magnitud}):</strong> ${meanContamination.toFixed(2)}</p>`;
+            }
+        });
+    }
+}
+
+// Ejecutar la función principal
+main();
