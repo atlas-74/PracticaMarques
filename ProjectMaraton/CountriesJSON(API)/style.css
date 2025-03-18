@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f038c945-39d5-4d1b-a777-c02a241fdb58/dgfilms-55306252-8d4d-453a-aa54-7192785169f3.png/v1/fill/w_1154,h_692/muro_de_banderas_by_richardpoison123_dgfilms-pre.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MzAwMCIsInBhdGgiOiJcL2ZcL2YwMzhjOTQ1LTM5ZDUtNGQxYi1hNzc3LWMwMmEyNDFmZGI1OFwvZGdmaWxtcy01NTMwNjI1Mi04ZDRkLTQ1M2EtYWE1NC03MTkyNzg1MTY5ZjMucG5nIiwid2lkdGgiOiI8PTUwMDAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.IkZimejidSign2RpaqO91BZ2CM8WXW_iYcz0kXdYnxU');
+    background-size: cover; /* Adjust to cover the whole screen */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent repetition */
+}
+
+h1 {
+    color: #333;
+}
+
+#search-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#search {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+#search-button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#search-button:hover {
+    background-color: #0056b3;
+}
+
+#suggestions-container {
+    margin-top: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+
+#country-container {
+    text-align: center;
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 1); /* White background with slight transparency */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for better contrast */
+    max-width: 400px;
+}
+
+#country-name {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#country-flag {
+    width: 350px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+#country-region {
+    font-size: 14px;
+    color: #666;
+}

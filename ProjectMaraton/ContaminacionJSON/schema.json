@@ -1,0 +1,58 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "data": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "punto_muestreo": { "type": "string" },
+                    "h01": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h02": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h03": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h04": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h05": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h06": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h07": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h08": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h09": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h10": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h11": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h12": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h13": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h14": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h15": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h16": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h17": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h18": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h19": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h20": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h21": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h22": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h23": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "h24": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+                    "municipio": { "type": "string" },
+                    "provincia": { "type": "string" },
+                    "estacion": { "type": "string" },
+                    "mes": { "type": "number" },
+                    "ano": { "type": "number" },
+                    "dia": { "type": "number" },
+                    "magnitud": { "type": "string" }
+                },
+                "required": [
+                    "punto_muestreo",
+                    "h01",
+                    "municipio",
+                    "provincia",
+                    "estacion",
+                    "mes",
+                    "ano",
+                    "dia",
+                    "magnitud"
+                ]
+            }
+        }
+    },
+    "required": ["data"]
+}
