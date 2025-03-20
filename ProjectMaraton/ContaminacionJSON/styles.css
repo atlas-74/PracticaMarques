@@ -1,192 +1,203 @@
 /* Estilos generales */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
-    color: #333;
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Alinear al inicio para permitir desplazamiento */
-    min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
+  background-color: #f0f2f5; /* Color de fondo suave */
+  color: #333; /* Color de texto principal */
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Alinear al inicio para permitir desplazamiento */
+  min-height: 100vh; /* Altura mínima de la ventana */
+}
+
+/* Contenedor principal */
+.container {
+  background-color: #ffffff; /* Fondo blanco */
+  padding: 30px;
+  border-radius: 16px; /* Bordes redondeados */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  width: 100%;
+  max-width: 1200px; /* Ancho máximo */
+  text-align: center;
+  transition: margin-top 0.3s ease; /* Transición suave para el margen superior */
+}
+
+/* Título principal */
+h1 {
+  margin-bottom: 24px;
+  font-size: 32px;
+  color: #2c3e50; /* Color oscuro para el título */
+  font-weight: 700; /* Negrita */
+  letter-spacing: -0.5px; /* Espaciado entre letras */
+}
+
+/* Contenedor de búsqueda */
+.search-container {
+  margin-bottom: 24px;
+  position: relative;
+  display: flex;
+  gap: 10px; /* Espacio entre elementos */
+  align-items: center;
+  justify-content: center;
+}
+
+/* Selector de tipo de búsqueda */
+#search-type {
+  padding: 12px;
+  border: 2px solid #e0e0e0; /* Borde gris */
+  border-radius: 12px; /* Bordes redondeados */
+  font-size: 16px;
+  outline: none;
+  background-color: #f9f9f9; /* Fondo gris claro */
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+}
+
+#search-type:focus {
+  border-color: #007bff; /* Borde azul al enfocar */
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2); /* Sombra al enfocar */
+}
+
+/* Campo de búsqueda */
+#search {
+  padding: 12px;
+  width: 100%;
+  max-width: 400px; /* Ancho máximo */
+  border: 2px solid #e0e0e0; /* Borde gris */
+  border-radius: 12px; /* Bordes redondeados */
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+  background-color: #f9f9f9; /* Fondo gris claro */
+}
+
+#search:focus {
+  border-color: #007bff; /* Borde azul al enfocar */
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2); /* Sombra al enfocar */
+}
+
+/* Barra de autocompletado */
+.suggestions {
+  max-height: 150px;
+  overflow-y: auto; /* Scroll vertical si es necesario */
+  border: 2px solid #e0e0e0; /* Borde gris */
+  border-radius: 12px; /* Bordes redondeados */
+  background-color: #ffffff; /* Fondo blanco */
+  position: absolute;
+  width: 100%;
+  max-width: 400px; /* Ancho máximo */
+  z-index: 1000; /* Asegurar que esté por encima de otros elementos */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  top: 100%; /* Posicionar debajo del campo de búsqueda */
+  left: 0;
+  display: none; /* Ocultar inicialmente */
+}
+
+/* Elementos de la lista de sugerencias */
+.suggestion-item {
+  padding: 10px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee; /* Borde inferior gris claro */
+  font-size: 14px;
+  color: #555; /* Color de texto gris oscuro */
+  transition: background-color 0.2s ease; /* Transición suave */
+}
+
+.suggestion-item:hover {
+  background-color: #f8f9fa; /* Fondo gris claro al pasar el cursor */
+}
+
+.suggestion-item:last-child {
+  border-bottom: none; /* Eliminar borde inferior del último elemento */
+}
+
+/* Scrollbar personalizada */
+.suggestions::-webkit-scrollbar {
+  width: 8px; /* Ancho de la barra de scroll */
+}
+
+.suggestions::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color de fondo de la barra */
+  border-radius: 4px; /* Bordes redondeados */
+}
+
+.suggestions::-webkit-scrollbar-thumb {
+  background: #ccc; /* Color de la barra */
+  border-radius: 4px; /* Bordes redondeados */
+}
+
+.suggestions::-webkit-scrollbar-thumb:hover {
+  background: #999; /* Color de la barra al pasar el cursor */
+}
+
+/* Lista de libros */
+.book-list {
+  display: flex;
+  flex-wrap: wrap; /* Permitir que los elementos se envuelvan */
+  gap: 24px; /* Espacio entre tarjetas */
+  justify-content: center;
+  margin-top: 24px;
+}
+
+/* Tarjeta de libro */
+.book-card {
+  background-color: #ffffff; /* Fondo blanco */
+  border: 1px solid #e0e0e0; /* Borde gris */
+  border-radius: 16px; /* Bordes redondeados */
+  padding: 20px;
+  width: 220px; /* Ancho fijo */
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+  cursor: pointer;
+}
+
+.book-card:hover {
+  transform: translateY(-8px); /* Elevación al pasar el cursor */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+}
+
+/* Imagen de la tarjeta de libro */
+.book-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px; /* Bordes redondeados */
+  margin-bottom: 16px;
+  transition: transform 0.3s ease; /* Transición suave */
+}
+
+.book-card:hover img {
+  transform: scale(1.05); /* Escalar ligeramente al pasar el cursor */
+}
+
+/* Título del libro */
+.book-card h3 {
+  font-size: 18px;
+  margin: 12px 0;
+  color: #2c3e50; /* Color oscuro */
+  font-weight: 600; /* Negrita */
+}
+
+/* Detalles del libro (autor y año) */
+.book-card p {
+  font-size: 14px;
+  color: #777; /* Color gris */
+  margin: 6px 0;
+}
+
+/* Animación de carga */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  .container {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 1200px;
-    text-align: center;
-    transition: margin-top 0.3s ease; /* Transición para el desplazamiento */
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  h1 {
-    margin-bottom: 24px;
-    font-size: 32px;
-    color: #2c3e50;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-  }
-  
-  .search-container {
-    margin-bottom: 24px;
-    position: relative;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  #search-type {
-    padding: 12px;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    font-size: 16px;
-    outline: none;
-    background-color: #f9f9f9;
-    cursor: pointer;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  #search-type:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
-  }
-  
-  #search {
-    padding: 12px;
-    width: 100%;
-    max-width: 400px;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    background-color: #f9f9f9;
-  }
-  
-  #search:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
-  }
-  
-  /* Barra de autocompletado mejorada */
-  .suggestions {
-    max-height: 150px;
-    overflow-y: auto;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    background-color: #ffffff;
-    position: absolute;
-    width: 100%;
-    max-width: 400px;
-    z-index: 10;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    top: 100%; /* Posicionar debajo del campo de búsqueda */
-    left: 0;
-    display: none; /* Ocultar inicialmente */
-  }
-  
-  .suggestion-item {
-    padding: 10px 12px;
-    cursor: pointer;
-    border-bottom: 1px solid #eee;
-    font-size: 14px;
-    color: #555;
-    transition: background-color 0.2s ease;
-  }
-  
-  .suggestion-item:hover {
-    background-color: #f8f9fa;
-  }
-  
-  .suggestion-item:last-child {
-    border-bottom: none;
-  }
-  
-  /* Scrollbar personalizada */
-  .suggestions::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  .suggestions::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
-  }
-  
-  .suggestions::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 4px;
-  }
-  
-  .suggestions::-webkit-scrollbar-thumb:hover {
-    background: #999;
-  }
-  
-  .book-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-    justify-content: center;
-    margin-top: 24px;
-  }
-  
-  .book-card {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 16px;
-    padding: 20px;
-    width: 220px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-  }
-  
-  .book-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  }
-  
-  .book-card img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 12px;
-    margin-bottom: 16px;
-    transition: transform 0.3s ease;
-  }
-  
-  .book-card:hover img {
-    transform: scale(1.05);
-  }
-  
-  .book-card h3 {
-    font-size: 18px;
-    margin: 12px 0;
-    color: #2c3e50;
-    font-weight: 600;
-  }
-  
-  .book-card p {
-    font-size: 14px;
-    color: #777;
-    margin: 6px 0;
-  }
-  
-  /* Animación de carga */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .book-card {
-    animation: fadeIn 0.5s ease-out;
-  }
+}
+
+.book-card {
+  animation: fadeIn 0.5s ease-out; /* Aplicar animación */
+}
