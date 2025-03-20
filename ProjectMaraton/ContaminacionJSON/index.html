@@ -1,43 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calidad del Aire</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscador de Libros</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Calidad del Aire por Provincia</h1>
-        <div class="controls">
-            <select id="provincia-select">
-                <option value="28">Madrid</option>
-                <option value="8">Barcelona</option>
-                <option value="41">Sevilla</option>
-                <option value="46">Valencia</option>
-                <option value="50">Zaragoza</option>
-            </select>
-            <select id="magnitud-select">
-                <option value="h01">h01</option>
-                <option value="h02">h02</option>
-                <option value="h03">h03</option>
-                <option value="h04">h04</option>
-                <option value="h05">h05</option>
-                <option value="h06">h06</option>
-                <option value="h07">h07</option>
-                <option value="h08">h08</option>
-                <option value="h09">h09</option>
-                <option value="h10">h10</option>
-            </select>
-            <select id="order-select">
-                <option value="asc">Menor a Mayor Contaminación</option>
-                <option value="desc">Mayor a Menor Contaminación</option>
-            </select>
-            <button id="filter-button">Filtrar</button>
-        </div>
-        <div id="mean-container"></div>
-        <div id="data-container"></div>
+  <div class="container">
+    <h1>Buscador de Libros</h1>
+    <div class="search-container">
+      <select id="search-type">
+        <option value="title">Buscar por Título</option>
+        <option value="author">Buscar por Autor</option>
+      </select>
+      <input type="text" id="search" placeholder="Buscar...">
     </div>
-    <script src="script.js"></script>
+    <div id="suggestions-container" class="suggestions"></div>
+    <div id="book-container" class="book-list"></div>
+  </div>
+  <script src="app.js"></script>
 </body>
 </html>
