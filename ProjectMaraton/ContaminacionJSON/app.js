@@ -10,11 +10,52 @@ const searchType = document.getElementById("search-type"); // Selector de tipo d
 // Variable para almacenar todos los libros
 let allBooks = [];
 
+// Esquema JSON para validación
+const schema = {
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "docs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "author_name": { "type": "array", "items": { "type": "string" } },
+          "cover_i": { "type": "number" },
+          "first_publish_year": { "type": "number" }
+        },
+        "required": ["title"] // El título es obligatorio
+      }
+    }
+  },
+  "required": ["docs"] // La propiedad "docs" es obligatoria
+};
+
+// Función para validar los datos contra el esquema
+function validateData(data) {
+  const ajv = new Ajv(); // Crear una instancia de Ajv
+  const validate = ajv.compile(schema); // Compilar el esquema
+  const isValid = validate(data); // Validar los datos
+
+  if (!isValid) {
+    console.error("Errores de validación:", validate.errors); // Mostrar errores en la consola
+    return false;
+  }
+  return true;
+}
+
 // Función para obtener los datos de la API
 async function fetchData() {
   try {
     const response = await fetch(URL); // Hacer la solicitud a la API
     const data = await response.json(); // Convertir la respuesta a JSON
+
+    // Validar los datos
+    if (!validateData(data)) {
+      throw new Error("Datos no válidos"); // Lanzar un error si los datos no son válidos
+    }
+
     allBooks = data.docs; // Almacenar los libros en la variable allBooks
     displayBooks(allBooks); // Mostrar todos los libros al cargar la página
   } catch (error) {
