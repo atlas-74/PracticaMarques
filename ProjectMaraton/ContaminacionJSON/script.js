@@ -1,43 +1,4 @@
-// Datos de ejemplo (reemplaza esto con la carga real de datos)
-const data = {
-    data: [
-        {
-            "punto_muestreo": "28102001_1_38",
-            "h01": "4",
-            "h02": "4",
-            "h03": "4",
-            "h04": "4",
-            "h05": "4",
-            "h06": "4",
-            "h07": "4",
-            "h08": "4",
-            "h09": "4",
-            "h10": "4",
-            "h11": "4",
-            "h12": "4",
-            "h13": "4",
-            "h14": "4",
-            "h15": "",
-            "h16": "",
-            "h17": "",
-            "h18": "",
-            "h19": "",
-            "h20": "",
-            "h21": "",
-            "h22": "",
-            "h23": "",
-            "h24": "",
-            "municipio": "102",
-            "provincia": "28",
-            "estacion": "1",
-            "mes": 3,
-            "ano": 2025,
-            "magnitud": "1",
-            "dia": 17
-        }
-        // Agrega más datos aquí si es necesario
-    ]
-};
+
 
 // Función para convertir valores de contaminación a números
 function parseContaminationValue(value) {
