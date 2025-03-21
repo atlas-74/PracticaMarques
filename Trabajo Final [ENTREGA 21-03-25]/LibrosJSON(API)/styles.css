@@ -1,0 +1,185 @@
+/* Estilos generales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna y legible */
+    background-color: #f0f2f5; /* Color de fondo suave */
+    color: #333; /* Color de texto principal */
+    margin: 0; /* Eliminar márgenes por defecto */
+    padding: 20px; /* Espaciado interno */
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: flex-start; /* Alinear al inicio verticalmente */
+    min-height: 100vh; /* Altura mínima de la ventana */
+  }
+  
+  /* Contenedor principal */
+  .container {
+    background-color: #ffffff; /* Fondo blanco */
+    padding: 30px; /* Espaciado interno */
+    border-radius: 16px; /* Bordes redondeados */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    width: 100%; /* Ancho completo */
+    max-width: 1200px; /* Ancho máximo */
+    text-align: center; /* Centrar texto */
+  }
+  
+  /* Título principal */
+  h1 {
+    margin-bottom: 24px; /* Espaciado inferior */
+    font-size: 32px; /* Tamaño de fuente */
+    color: #2c3e50; /* Color oscuro para el título */
+    font-weight: 700; /* Negrita */
+    letter-spacing: -0.5px; /* Espaciado entre letras */
+  }
+  
+  /* Contenedor de búsqueda */
+  .search-container {
+    margin-bottom: 24px; /* Espaciado inferior */
+    position: relative; /* Posicionamiento relativo para la barra de autocompletado */
+    display: flex;
+    gap: 10px; /* Espacio entre elementos */
+    align-items: center; /* Centrar verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+  }
+  
+  /* Selector de tipo de búsqueda */
+  #search-type {
+    padding: 12px; /* Espaciado interno */
+    border: 2px solid #e0e0e0; /* Borde gris */
+    border-radius: 12px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente */
+    outline: none; /* Eliminar contorno al enfocar */
+    background-color: #f9f9f9; /* Fondo gris claro */
+    cursor: pointer; /* Cambiar cursor a pointer */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+  }
+  
+  #search-type:focus {
+    border-color: #007bff; /* Borde azul al enfocar */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2); /* Sombra al enfocar */
+  }
+  
+  /* Campo de búsqueda */
+  #search {
+    padding: 12px; /* Espaciado interno */
+    width: 100%; /* Ancho completo */
+    max-width: 400px; /* Ancho máximo */
+    border: 2px solid #e0e0e0; /* Borde gris */
+    border-radius: 12px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente */
+    outline: none; /* Eliminar contorno al enfocar */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+    background-color: #f9f9f9; /* Fondo gris claro */
+  }
+  
+  #search:focus {
+    border-color: #007bff; /* Borde azul al enfocar */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2); /* Sombra al enfocar */
+  }
+  
+  /* Elementos de la lista de sugerencias */
+  .suggestion-item {
+    padding: 10px 12px; /* Espaciado interno */
+    cursor: pointer; /* Cambiar cursor a pointer */
+    border-bottom: 1px solid #eee; /* Borde inferior gris claro */
+    font-size: 14px; /* Tamaño de fuente */
+    color: #555; /* Color de texto gris oscuro */
+    transition: background-color 0.2s ease; /* Transición suave */
+  }
+  
+  .suggestion-item:hover {
+    background-color: #f8f9fa; /* Fondo gris claro al pasar el cursor */
+  }
+  
+  .suggestion-item:last-child {
+    border-bottom: none; /* Eliminar borde inferior del último elemento */
+  }
+  
+  /* Scrollbar personalizada */
+  .suggestions::-webkit-scrollbar {
+    width: 8px; /* Ancho de la barra de scroll */
+  }
+  
+  .suggestions::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color de fondo de la barra */
+    border-radius: 4px; /* Bordes redondeados */
+  }
+  
+  .suggestions::-webkit-scrollbar-thumb {
+    background: #ccc; /* Color de la barra */
+    border-radius: 4px; /* Bordes redondeados */
+  }
+  
+  .suggestions::-webkit-scrollbar-thumb:hover {
+    background: #999; /* Color de la barra al pasar el cursor */
+  }
+  
+  /* Lista de libros */
+  .book-list {
+    display: flex;
+    flex-wrap: wrap; /* Permitir que los elementos se envuelvan */
+    gap: 24px; /* Espacio entre tarjetas */
+    justify-content: center; /* Centrar horizontalmente */
+    margin-top: 24px; /* Espaciado superior */
+  }
+  
+  /* Tarjeta de libro */
+  .book-card {
+    background-color: #ffffff; /* Fondo blanco */
+    border: 1px solid #e0e0e0; /* Borde gris */
+    border-radius: 16px; /* Bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+    width: 220px; /* Ancho fijo */
+    text-align: center; /* Centrar texto */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+    cursor: pointer; /* Cambiar cursor a pointer */
+  }
+  
+  .book-card:hover {
+    transform: translateY(-8px); /* Elevación al pasar el cursor */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+  }
+  
+  /* Imagen de la tarjeta de libro */
+  .book-card img {
+    max-width: 100%; /* Ancho máximo */
+    height: auto; /* Altura automática */
+    border-radius: 12px; /* Bordes redondeados */
+    margin-bottom: 16px; /* Espaciado inferior */
+    transition: transform 0.3s ease; /* Transición suave */
+  }
+  
+  .book-card:hover img {
+    transform: scale(1.05); /* Escalar ligeramente al pasar el cursor */
+  }
+  
+  /* Título del libro */
+  .book-card h3 {
+    font-size: 18px; /* Tamaño de fuente */
+    margin: 12px 0; /* Espaciado */
+    color: #2c3e50; /* Color oscuro */
+    font-weight: 600; /* Negrita */
+  }
+  
+  /* Detalles del libro (autor y año) */
+  .book-card p {
+    font-size: 14px; /* Tamaño de fuente */
+    color: #777; /* Color gris */
+    margin: 6px 0; /* Espaciado */
+  }
+  
+  /* Animación de carga */
+  @keyframes fadeIn {
+    from {
+      opacity: 0; /* Inicio transparente */
+      transform: translateY(20px); /* Desplazamiento inicial */
+    }
+    to {
+      opacity: 1; /* Opacidad completa */
+      transform: translateY(0); /* Sin desplazamiento */
+    }
+  }
+  
+  .book-card {
+    animation: fadeIn 0.5s ease-out; /* Aplicar animación */
+  }

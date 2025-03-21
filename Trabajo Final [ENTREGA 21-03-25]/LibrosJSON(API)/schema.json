@@ -1,0 +1,20 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "docs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": { "type": "string" },
+            "authors": { "type": "array", "items": { "type": "string" } },
+            "cover_i": { "type": "number" },
+            "first_publish_year": { "type": "number" }
+          },
+          "required": ["title"]
+        }
+      }
+    },
+    "required": ["docs"]
+  }
